@@ -69,10 +69,9 @@ The application uses Django’s monolithic **Model–View–Template (MVT)** arc
 
 ## 🖼️ Screenshots
 
-| Homepage | Django Dashboard |
+| Homepage | Dashboard |
 | --- | --- |
-| ![Homepage](docs/screenshots/homepage.png) | ![Dashboard](docs/screenshots/django.png) |
-
+| ![Homepage](docs/screenshots/homepage.png) | ![Dashboard](docs/screenshots/Django.png) |
 ---
 
 ## 🧰 Tech Stack
