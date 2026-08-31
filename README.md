@@ -21,8 +21,6 @@ A secure Django MVT e-commerce prototype for browsing a Pakistan-focused catalog
 
 The application uses Django’s monolithic **Model–View–Template (MVT)** architecture. Guests can browse products and add items to a session cart; authentication is required only when proceeding to checkout. Signed-in carts, orders, addresses, coupons, payments, and refund requests are isolated to the authenticated user.
 
-This is an educational portfolio prototype. It does not claim live payment processing, inventory reservation, shipping fulfillment, tax calculation, or production webhook reconciliation.
-
 ---
 
 ## ✨ Features
@@ -71,13 +69,9 @@ This is an educational portfolio prototype. It does not claim live payment proce
 
 ## 🖼️ Screenshots
 
-```markdown
-| Bazaarly storefront | Product detail | Checkout |
-| --- | --- | --- |
-| ![Storefront](docs/screenshots/storefront.png) | ![Product detail](docs/screenshots/product-detail.png) | ![Checkout](docs/screenshots/checkout.png) |
-```
-
-Screenshots are optional documentation assets and are not required to run the application.
+| Homepage | Django Dashboard |
+| --- | --- |
+| ![Homepage](docs/screenshots/homepage.png) | ![Dashboard](docs/screenshots/django.png) |
 
 ---
 
@@ -257,12 +251,19 @@ Never enter a real card. Automated tests mock provider requests. The application
 
 ---
 
-## 📄 License and Attribution
+## 🧑‍💻 Author
 
-Project code is available under the MIT License. Third-party assets retain their own notices and licenses.
+**Muhammad Ali Nawaz**  
+Python Developer
 
-**Developer by Muhammad Ali Nawaz — 2026**
+---
 
-Safe resume claim:
+## 📄 License
 
-> Built a secure Django e-commerce prototype with guest and authenticated carts, Pakistan/PKR checkout, coupons, user-scoped orders, CSRF protection, and Stripe test-mode PaymentIntents.
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<p align="center">
+  <b>⭐ If this project helps you, consider starring the repository!</b>
+</p>
