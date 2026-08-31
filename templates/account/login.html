@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head_title %}Sign In{% endblock %}
+
+{% block content %}
+<main class="auth-page">
+  <section class="auth-card" aria-labelledby="signin-title">
+    <a class="brand auth-brand" href="{% url 'core:home' %}">BAZAAR<span>LY</span></a>
+    <h1 id="signin-title">Welcome back</h1>
+    <p>Sign in to save your cart and continue to secure checkout.</p>
+    <form method="post" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}
+        <div class="auth-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}</div>
+      {% endfor %}
+      {% if redirect_field_value %}<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">{% endif %}
+      <button class="auth-submit" type="submit">Sign In</button>
+    </form>
+    <p class="auth-switch">New to Bazaarly? <a href="{% url 'account_signup' %}">Create an account</a></p>
+  </section>
+</main>
+{% endblock content %}

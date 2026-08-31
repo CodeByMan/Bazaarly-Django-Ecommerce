@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head_title %}Stripe Test Payment{% endblock %}
+
+{% block extra_head %}
+<style>
+  .StripeElement { padding: 12px; border: 1px solid #ced4da; border-radius: 4px; background: white; }
+  .StripeElement--focus { border-color: #80bdff; box-shadow: 0 0 0 .2rem rgba(0,123,255,.25); }
+  .StripeElement--invalid { border-color: #dc3545; }
+  #card-errors { min-height: 24px; color: #dc3545; margin-top: 8px; }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+<main>
+  <div class="container wow fadeIn">
+    <h2 class="my-5 h2 text-center">Stripe test-mode payment</h2>
+    <div class="alert alert-info" role="status">
+      This portfolio prototype uses Stripe test mode only. Do not enter a real card.
+    </div>
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <div class="card p-4">
+          <form method="post" id="payment-form">
+            {% csrf_token %}
+            <input type="hidden" name="idempotency_key" value="{{ idempotency_key }}">
+            <input type="hidden" name="stripe_payment_method_id" id="stripe-payment-method-id">
+            <label for="card-element">Test card details</label>
+            <div id="card-element"></div>
+            <div id="card-errors" role="alert" aria-live="polite"></div>
+            <button id="payment-submit" class="btn btn-primary btn-block" type="submit">Pay PKR {{ order.get_total }}</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        {% include "order_snippet.html" %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+{% block extra_scripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+(function () {
+  "use strict";
+  var form = document.getElementById("payment-form");
+  var errorBox = document.getElementById("card-errors");
+  var submitButton = document.getElementById("payment-submit");
+  if (!form || !window.Stripe) {
+    if (errorBox) errorBox.textContent = "Stripe test mode could not be loaded.";
+    if (submitButton) submitButton.disabled = true;
+    return;
+  }
+
+  var stripe = Stripe("{{ STRIPE_PUBLIC_KEY|escapejs }}");
+  var card = stripe.elements().create("card", {hidePostalCode: true});
+  card.mount("#card-element");
+  card.on("change", function (event) {
+    errorBox.textContent = event.error ? event.error.message : "";
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    submitButton.disabled = true;
+    stripe.createPaymentMethod({type: "card", card: card}).then(function (result) {
+      if (result.error) {
+        errorBox.textContent = result.error.message;
+        submitButton.disabled = false;
+        return;
+      }
+      document.getElementById("stripe-payment-method-id").value = result.paymentMethod.id;
+      form.submit();
+    });
+  });
+}());
+</script>
+{% endblock extra_scripts %}

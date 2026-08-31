@@ -1,0 +1,14 @@
+{% load static %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/mdb.min.js' %}"></script>
+<script>
+document.addEventListener("click", function (event) {
+  var button = event.target.closest(".site-messages .close");
+  if (!button) return;
+  event.preventDefault();
+  var alert = button.closest(".alert");
+  if (alert) alert.remove();
+});
+</script>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head_title %}Order {{ order.ref_code }}{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <h2>Order {{ order.ref_code }}</h2>
+    <p>Status: <strong>{{ order.get_status_display }}</strong></p>
+    <p>Total: <strong>PKR {{ order.get_total }}</strong></p>
+    <ul class="list-group mb-4">
+      {% for order_item in order.items.all %}
+      <li class="list-group-item d-flex justify-content-between">
+        <span>{{ order_item.quantity }} × {{ order_item.item.title }}</span>
+        <span>PKR {{ order_item.get_final_price }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if not order.refund_requested %}
+      <a class="btn btn-outline-primary" href="{% url 'core:request-refund' %}">Request a refund</a>
+    {% endif %}
+  </div>
+</main>
+{% endblock content %}

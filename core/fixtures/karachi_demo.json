@@ -1,0 +1,108 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1000,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "karachi.demo",
+      "first_name": "Ayesha",
+      "last_name": "Khan",
+      "email": "ayesha.khan@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.userprofile",
+    "pk": 1000,
+    "fields": {
+      "user": 1000,
+      "stripe_customer_id": null,
+      "one_click_purchasing": false
+    }
+  },
+  {
+    "model": "core.address",
+    "pk": 1000,
+    "fields": {
+      "user": 1000,
+      "street_address": "12 Demo Lane, Clifton, Karachi",
+      "apartment_address": "Suite 4B",
+      "country": "PK",
+      "zip": "75600",
+      "address_type": "S",
+      "default": true
+    }
+  },
+  {
+    "model": "core.address",
+    "pk": 1001,
+    "fields": {
+      "user": 1000,
+      "street_address": "45 Fictional Avenue, PECHS, Karachi",
+      "apartment_address": "",
+      "country": "PK",
+      "zip": "75400",
+      "address_type": "B",
+      "default": true
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 1000,
+    "fields": {
+      "title": "Clifton Cotton Shirt",
+      "price": "3499.00",
+      "discount_price": "2999.00",
+      "category": "S",
+      "label": "P",
+      "slug": "clifton-cotton-shirt",
+      "description": "A fictional cotton shirt from the demo Karachi catalog.",
+      "image": ""
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 1001,
+    "fields": {
+      "title": "Seaview Training Jacket",
+      "price": "7499.00",
+      "discount_price": null,
+      "category": "SW",
+      "label": "S",
+      "slug": "seaview-training-jacket",
+      "description": "A fictional lightweight sports jacket for the portfolio demo.",
+      "image": ""
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 1002,
+    "fields": {
+      "title": "Saddar Everyday Outerwear",
+      "price": "8999.00",
+      "discount_price": "7999.00",
+      "category": "OW",
+      "label": "D",
+      "slug": "saddar-everyday-outerwear",
+      "description": "A fictional outerwear item created for testing and screenshots.",
+      "image": ""
+    }
+  },
+  {
+    "model": "core.coupon",
+    "pk": 1000,
+    "fields": {
+      "code": "KARACHI500",
+      "amount": "500.00",
+      "active": true,
+      "valid_from": null,
+      "valid_until": null
+    }
+  }
+]

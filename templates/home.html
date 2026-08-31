@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="catalog-page">
+  <section class="catalog-intro" aria-labelledby="catalog-title">
+    <h1 id="catalog-title">Step Into Style</h1>
+    {% if search_query %}
+      <p>Search results for “{{ search_query }}”</p>
+    {% else %}
+      <p>Discover our latest collection of premium fashion — comfort, design, and performance in every piece.</p>
+    {% endif %}
+  </section>
+  <section class="product-grid" aria-label="Products">
+    {% for item in object_list %}
+      <article class="product-card">
+        <a class="product-image-link" href="{{ item.get_absolute_url }}" aria-label="View {{ item.title }}">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+          {% else %}
+            <span class="product-visual visual-{{ item.category|lower }}" role="img" aria-label="{{ item.title }}"></span>
+          {% endif %}
+          <span class="quick-view"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4.2 4.2"/></svg>Quick View</span>
+        </a>
+        <div class="product-info">
+          <a class="product-name" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+          <p class="product-price">PKR {% if item.discount_price %}{{ item.discount_price }}{% else %}{{ item.price }}{% endif %}</p>
+          <form method="post" action="{{ item.get_add_to_cart_url }}">
+            {% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}">
+            <button class="add-cart-button" type="submit"><svg class="button-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2 10h10l2-7H7"/><circle cx="8.5" cy="19" r="1.1"/><circle cx="17.5" cy="19" r="1.1"/></svg>Add to Cart</button>
+          </form>
+        </div>
+      </article>
+    {% empty %}
+      <p class="empty-results">No products matched your search.</p>
+    {% endfor %}
+  </section>
+  {% if is_paginated %}
+    <nav class="catalog-pagination" aria-label="Catalog pages">
+      {% if page_obj.has_previous %}<a href="?q={{ search_query|urlencode }}&page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }}</span>
+      {% if page_obj.has_next %}<a href="?q={{ search_query|urlencode }}&page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+</main>
+{% endblock content %}

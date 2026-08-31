@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head_title %}Request a refund{% endblock %}
+
+{% block content %}
+<main class="mt-5 pt-5">
+  <div class="container col-lg-7">
+    <h1>Request a refund</h1>
+    <p class="text-muted">Requests are recorded for staff review. This prototype does not issue a payment automatically.</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Submit request</button>
+    </form>
+  </div>
+</main>
+{% endblock %}
